@@ -4,10 +4,20 @@ body {
   color: #00c9a6;
 }
 
+h1 {
+	text-align: center;
+	margin-top: 100px;
+	display: none;
+	color: #5fffe3;
+}
+
+.fadein {opacity: 1.0;}
+
 form {
-text-align: center;
-margin: 0 auto;
-margin-top: 390px;
+	text-align: center;
+	margin: 0 auto;
+	margin-top: 390px;
+	display: none;
 }
 
 input {
