@@ -112,10 +112,26 @@ li:hover{cursor: pointer;}
 
 
 
+@media screen and (max-width: 500px) {
+  body {
+    width: 100%;
+  }
+  .mains {
+    max-width: 100%;
+    display: block;
+ 
+    margin: 0 auto;
+    background-image: url('images/small.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    float: none;
+  }
+  .songs {
+    margin: 0 auto;
+    background-color: #5fffe3;
+    max-width: 100%;
+    float: none;
+	  }
 
-@media screen and (max-width: 500px){
-
-.mains {width:400px; display: block;}
-.songs {width:400px; display: block;}	
-
+	  p {font-size: 40px;}
 }
