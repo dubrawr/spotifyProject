@@ -32,38 +32,36 @@ $('form').on('submit', function(event){
 	var searchTopTracks = results.then( function (data) {
 	        console.log(data.artists.items[0].id);
 	        var artistId = data.artists.items[0].id;
-	        //use the artist ID to search top tracks
+	        //use the artist ID to search top tracks and add in artist input name to heading
+
+	        $('p').html(data.artists.items[0].name +"'s <br> Top 5 Tracks");
 	        return $.getJSON('https://api.spotify.com/v1/artists/' + artistId + '/top-tracks?country=US');
+	   	    
 	   	    });
 	searchTopTracks.then(function(data){
 	        	console.log(data.tracks[0].name);
 	        	//create function to append tracks
 				for (var index=0; index < 5; index++){
-				$('ul').append('<li><div class="sw" style="display:none" id='+ data.tracks[index].id+'>'+data.tracks[index].name+'</div></li>').find('.sw').fadeIn('slow');
+					// added in substring for long song titles to cut off after 27th character
+				$('ul').append('<li><div class="sw" style="display:none" id='+ data.tracks[index].id+'>'+(data.tracks[index].name).substring(0,27)+'</div></li>').find('.sw').fadeIn('slow');
 				}
 	        	});
 	//resets form input
+
 	$('#artistInput').val("");
 });
-
 //get track id, and preview the song
 $('ul').on('click', '.sw', function(){
-var trackId = $(this).attr("id");
-
-var track = $.getJSON('https://api.spotify.com/v1/tracks/'+trackId);
-var playTrack = track.then(function(playTrack){
-
-var playAudio = new Audio(playTrack.preview_url);
-console.log(playTrack.preview_url);
-playAudio.play();
+	var trackId = $(this).attr("id");
+	var track = $.getJSON('https://api.spotify.com/v1/tracks/'+trackId);
+	var playTrack = track.then(function(playTrack){
+	var playAudio = new Audio(playTrack.preview_url);
+	console.log(playTrack.preview_url);
+	playAudio.play();
+	//i can't figure out how to pause the current song.
+});
 
 });
 
 
-
-
-
-//(trackId.preview_url)
-
-});
 });
