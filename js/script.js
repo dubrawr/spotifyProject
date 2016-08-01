@@ -10,20 +10,18 @@ var showForm = function(){
 
 
 $(document).ready(function(){
+	//look up more info on css animations (they perform better)
 	$('h1').fadeIn(2500);
 	showForm();
-});
-
 
 //get artist, then get artist's id, then get tracks by artist ID
-
-$('form').on('submit', function(){
+$('form').on('submit', function(event){
 	event.preventDefault();
 	//empties list
 	$('ul').empty();
 	//takes input to search for artist
 	var artistName = $('#artistInput').val();
-	var url = "https://api.spotify.com/v1/search?";
+	var url = "https://api.spotify.com/v1/search";
 	var params = {
 		type: 'artist',
 		q: artistName,
@@ -32,21 +30,40 @@ $('form').on('submit', function(){
 	console.log(results);
 	//takes the uri and isolates only the ID number
 	var searchTopTracks = results.then( function (data) {
-	        console.log(data.artists.items[0].uri);
-	        var artistId = data.artists.items[0].uri;
-	        var id = artistId.substr(15,37);
-	        console.log(id);
+	        console.log(data.artists.items[0].id);
+	        var artistId = data.artists.items[0].id;
 	        //use the artist ID to search top tracks
-	        var topTracks = $.getJSON('https://api.spotify.com/v1/artists/' + id + '/top-tracks?country=US');
-	        console.log(topTracks);
-	        	topTracks.then(function(data){
+	        return $.getJSON('https://api.spotify.com/v1/artists/' + artistId + '/top-tracks?country=US');
+	   	    });
+	searchTopTracks.then(function(data){
 	        	console.log(data.tracks[0].name);
 	        	//create function to append tracks
 				for (var index=0; index < 5; index++){
-				$('ul').append('<li><div class="sw" style="display:none">'+data.tracks[index].name+'</div></li>').find('.sw').fadeIn('slow');
+				$('ul').append('<li><div class="sw" style="display:none" id='+ data.tracks[index].id+'>'+data.tracks[index].name+'</div></li>').find('.sw').fadeIn('slow');
 				}
 	        	});
-	        });
 	//resets form input
 	$('#artistInput').val("");
+});
+
+//get track id, and preview the song
+$('ul').on('click', '.sw', function(){
+var trackId = $(this).attr("id");
+
+var track = $.getJSON('https://api.spotify.com/v1/tracks/'+trackId);
+var playTrack = track.then(function(playTrack){
+
+var playAudio = new Audio(playTrack.preview_url);
+console.log(playTrack.preview_url);
+playAudio.play();
+
+});
+
+
+
+
+
+//(trackId.preview_url)
+
+});
 });

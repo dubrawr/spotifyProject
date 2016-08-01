@@ -41,6 +41,8 @@ input {
   background-image: url('images/play.jpg');
 }
 
+.mains:hover {cursor: pointer;}
+
 .songs {
   width: 400px;
   height: 800px;
@@ -51,7 +53,7 @@ input {
 
 .list {
   width: 300px;
-  height: 275px;
+  height: 280px;
   background-color: white;
   border-radius: 5px;
   margin-top: 1px;
@@ -74,6 +76,8 @@ ul {
 li {
   display: block;
 }
+
+li:hover{cursor: pointer;}
 
 .sw {
   background-color:#1c1c1c;
