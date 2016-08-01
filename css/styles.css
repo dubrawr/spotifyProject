@@ -1,3 +1,7 @@
+
+
+
+
 body {
   background-color: #1c1c1c;
   font-family: Lato, helvetica, sans-serif;
@@ -99,4 +103,19 @@ li:hover{cursor: pointer;}
   color: #5fffe3;
   font-size: 20px;
   font-weight: 300;
+}
+
+
+/*trying mobile stuff*/
+
+
+
+
+
+
+@media screen and (max-width: 500px){
+
+.mains {width:400px; display: block;}
+.songs {width:400px; display: block;}	
+
 }
