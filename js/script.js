@@ -1,5 +1,5 @@
 var showForm = function(){
-	$('body').on('click', '.mains', function(event){
+	$('body').on('click touchstart', '.mains', function(event){
 	event.preventDefault();
 	$('form').fadeIn('slow');
 	$('h1').hide();
@@ -51,7 +51,7 @@ $('form').on('submit', function(event){
 	$('#artistInput').val("");
 });
 //get track id, and preview the song
-$('ul').on('click touchstart', '.sw', function(){
+$('ul').on('click', '.sw', function(){
 	var trackId = $(this).attr("id");
 	var track = $.getJSON('https://api.spotify.com/v1/tracks/'+trackId);
 	var playTrack = track.then(function(playTrack){
