@@ -1,6 +1,6 @@
 var showForm = function() {
   $('body').on('click touchstart', '.mains', function(event) {
-    event.preventDefault();
+    
     $('form').fadeIn('slow');
     $('h1').hide();
   });
@@ -81,8 +81,6 @@ var getAudio = function (){var trackId = $(this).attr("id");
         var playAudio = new Audio(playTrack.preview_url);
         console.log(playTrack.preview_url);
 
-
-
         audioList = [];
         audioList.push(playAudio);
 
@@ -124,3 +122,5 @@ var getAudio = function (){var trackId = $(this).attr("id");
 //if (audioList.length === 1){
 //	playAudio.pause();
 //	audioList = [];
+
+//use data-spotify-id so i can do like data(spotify-id)
