@@ -28,14 +28,19 @@ $(document).ready(function() {
     };
     var results = $.getJSON(url, params);
     console.log(results);
-    //takes the uri and isolates only the ID number
+   
+    //grabs the artist id
     var searchTopTracks = results.then(function(data) {
+    	//if no results, alert error
+    	 if (data.artists.items.length === 0){alert("No artists found. Please enter a valid artist.");
+    	 } else {
+    	 	// continues if an artist can be found
       console.log(data.artists.items[0].id);
       var artistId = data.artists.items[0].id;
       //use the artist ID to search top tracks and add in artist input name to heading
 
       $('p').html(data.artists.items[0].name + "'s <br> Top 5 Tracks");
-      return $.getJSON('https://api.spotify.com/v1/artists/' + artistId + '/top-tracks?country=US');
+      return $.getJSON('https://api.spotify.com/v1/artists/' + artistId + '/top-tracks?country=US');}
 
     });
     searchTopTracks.then(function(data) {
@@ -51,18 +56,32 @@ $(document).ready(function() {
     $('#artistInput').val("");
   });
   var audioList = [];
+
+var getAudio = function (){var trackId = $(this).attr("id");
+      var track = $.getJSON('https://api.spotify.com/v1/tracks/' + trackId);
+      var playTrack = track.then(function(playTrack) {
+        var playAudio = new Audio(playTrack.preview_url);
+        console.log(playTrack.preview_url);
+
+        audioList = [];
+        audioList.push(playAudio);
+
+        playAudio.play();});};
+
   //get track id, and preview the song
   $('ul').on('click', '.sw', function() {
   	//checks if anything is in audioList array, if it is, pause it and clear the array to continue playing next song.
     if (audioList.length === 1) {
       audioList[0].pause();
-      audioList = [];
+     
 
       var trackId = $(this).attr("id");
       var track = $.getJSON('https://api.spotify.com/v1/tracks/' + trackId);
       var playTrack = track.then(function(playTrack) {
         var playAudio = new Audio(playTrack.preview_url);
         console.log(playTrack.preview_url);
+
+
 
         audioList = [];
         audioList.push(playAudio);
@@ -89,10 +108,16 @@ $(document).ready(function() {
 
 });
 
+
+
+
+
+
 // can i push audio into an array. on click check if this item is in the array, if it is. pause and clear the array, else continue on.
 //i can't figure out how to pause the current song. and play the new one.
 //audioList = [];
 //audioList.push(playAudio);
+// this worked..now to somehow clean up the code Lol..
 
 
 
