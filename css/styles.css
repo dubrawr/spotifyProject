@@ -125,13 +125,15 @@ li:hover{cursor: pointer;}
     background-repeat: no-repeat;
     background-position: center center;
     float: none;
+    max-height: 500px;
   }
   .songs {
     margin: 0 auto;
     background-color: #5fffe3;
     max-width: 100%;
     float: none;
+    max-height: 500px;
 	  }
 
-	  p {font-size: 40px;}
+  p {font-size: 40px; margin-top: 50px; }
 }
