@@ -1,5 +1,5 @@
 var showForm = function(){
-	$('body').on('click touchstart', '.mains', function(event){
+	$('body').on('click tap', '.mains', function(event){
 	event.preventDefault();
 	$('form').fadeIn('slow');
 	$('h1').hide();
