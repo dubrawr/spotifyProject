@@ -69,7 +69,7 @@ var getAudio = function (){var trackId = $(this).attr("id");
         playAudio.play();});};
 
   //get track id, and preview the song
-  $('ul').on('click', '.sw', function() {
+  $('ul').on('click touchstart', '.sw', function() {
   	//checks if anything is in audioList array, if it is, pause it and clear the array to continue playing next song.
     if (audioList.length === 1) {
       audioList[0].pause();
