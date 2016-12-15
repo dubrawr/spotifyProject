@@ -43,13 +43,20 @@ $(document).ready(function() {
       return $.getJSON('https://api.spotify.com/v1/artists/' + artistId + '/top-tracks?country=US');}
 
     });
+    var videoList = [];
     searchTopTracks.then(function(data) {
-      console.log(data.tracks[0].name);
+      console.log(data);
+      console.log(data.tracks[0].artists[0].name);
+      var artist = data.tracks[0].artists[0].name;
       //create function to append tracks
       for (var index = 0; index < 5; index++) {
+        
+        videoList.push(data.tracks[index].name);
+       
         // added in substring for long song titles to cut off after 27th character
         $('ul').append('<li><div class="sw" style="display:none" id=' + data.tracks[index].id + '>' + (data.tracks[index].name).substring(0, 27) + '</div></li>').find('.sw').fadeIn('slow');
       }
+       console.log(videoList);
     });
     //resets form input
 
@@ -96,7 +103,7 @@ var getAudio = function (){var trackId = $(this).attr("id");
 // this adds current song into the audiolist so i can check if something is playing later.
         audioList = [];
         audioList.push(playAudio);
-
+        
         playAudio.play();
       });
     }
@@ -106,21 +113,14 @@ var getAudio = function (){var trackId = $(this).attr("id");
 
 });
 
+var getVidoes = function(){
+  for (var index = 0; index < 5; index++){
+    var apiKey = AIzaSyAyWhtsZfUhuW1qjH6MP9olRezZJfNOEZ4;
+    var params = {
+      q: artist + ' '+ videoList[index],
+      type: 'video',
+    };
+    $.getJSON('https://www.googleapis.com/youtube/v3/search?key='+apiKey+params);
+  }
+};
 
-
-
-
-
-// can i push audio into an array. on click check if this item is in the array, if it is. pause and clear the array, else continue on.
-//i can't figure out how to pause the current song. and play the new one.
-//audioList = [];
-//audioList.push(playAudio);
-// this worked..now to somehow clean up the code Lol..
-
-
-
-//if (audioList.length === 1){
-//	playAudio.pause();
-//	audioList = [];
-
-//use data-spotify-id so i can do like data(spotify-id)
